@@ -40,15 +40,22 @@
                 </p>
                 <a data-bind="attr: { href: venue_url, title: venue_details }" target="_blank" class="btn btn-primary">More on Foursquare</a>
               </div>
-            </div>
 
-            <div class="alert alert-danger" role="alert" data-bind="visible: shouldShowAlert">
-              Sorry, we are not able to load the information about this venue. Please try again later.
+              </div>
 
-            </div>
+              <div class="alert alert-danger" role="alert" data-bind="visible: shouldShowAlert">
+                Sorry, we are not able to load the information about this venue. Please try again later.
 
+              </div>
 
         </nav>
+
+
+
+
+
+
+
 
 
 
@@ -59,6 +66,12 @@
         </main>
       </div>
     </div>
+    <img id="fs_logo" width="200" src="Powered-by-Foursquare-one-color-600_preview.png" />
+
+
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
@@ -181,6 +194,7 @@
 
       function getStoreInfo(v_id)
       {
+        MyViewModelObj.shouldShowAlert(false);
         //****** replace with your foursquare id & secret here
         let fs_client_id ="";
         let fs_client_secret ="";
