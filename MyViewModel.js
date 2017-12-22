@@ -7,8 +7,8 @@ function MyViewModel() {
   self.closeCard = function() {
     self.shouldShowCard(false);
   };
-  elf.shouldShowCard = ko.observable(false), // Venue Data from foursquare
-  elf.shouldShowAlert = ko.observable(false), // Message when foursquare data load failed.
+  self.shouldShowCard = ko.observable(false), // Venue Data from foursquare
+  self.shouldShowAlert = ko.observable(false), // Message when foursquare data load failed.
   self.shouldShowMapAlert = ko.observable(false), // Message when Google Map API load failed.
   self.venue_name=ko.observable();
   self.venue_url=ko.observable();
