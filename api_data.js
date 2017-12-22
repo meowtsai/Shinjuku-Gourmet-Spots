@@ -17,7 +17,6 @@ function initMap() {
     zoom: 16,
     center: shinjuku
   });
-
   // Style the markers a bit. This will be our listing marker icon.
   var defaultIcon = makeMarkerIcon('0091ff');
   // Create a "highlighted location" marker color for when the user
@@ -26,9 +25,7 @@ function initMap() {
   // The following group uses the location array to create an array of markers on initialize.
   for (var i = 0; i < locations.length; i++) {
     // Get the position from the location array.
-
     var position = locations[i].location;
-    //console.log(JSON.stringify(position));
     var title = locations[i].title;
     var foursquare_id = locations[i].foursquare_id;
     // Create a marker per location, and put into markers array.
@@ -74,10 +71,8 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick',function(){
       infowindow.setMarker = null;
     });
-
     marker.setAnimation(google.maps.Animation.BOUNCE);
     setTimeout(function(){ marker.setAnimation(null); }, 1400);
-    
   }
 }
 
@@ -90,7 +85,6 @@ function highlightMarker(place){
   let highlightedMarker = markers.filter(item => item.title.search(place.title)>-1)[0];
   //console.log("highlightedMarker" + highlightedMarker);
   google.maps.event.trigger(highlightedMarker, 'click');
-
   //this.filteredArray(locations.filter(item => item.title.search(value) >-1));
   selectedLocation = place;
 }
@@ -119,19 +113,14 @@ function applyFilter(placeArray){
     return markerImage;
   }
 
-
   function getStoreInfo(v_id)
   {
     MyViewModelObj.shouldShowAlert(false);
-    //****** replace with your foursquare id & secret here
+    //******  foursquare id & secret
     let fs_client_id ="4L1OFQIJQWWS51YFQEZIKZDLCRNOTQ0QJOIUONHS3A0X5ZDZ";
     let fs_client_secret ="NVXVPQZ3LFPUQ5LRVZNTG5TMY10T12BKBKHVQPON5VJKIPTX";
     //******
     let url ="https://api.foursquare.com/v2/venues/"+ v_id +"?client_id="+ fs_client_id +"&client_secret="+ fs_client_secret +"&v=20170801";
-
-
-
-
     $.getJSON(url, function(data) {
       //console.log('getStoreInfo' + JSON.stringify(data));
       if (data.meta.code === 200)
@@ -141,26 +130,14 @@ function applyFilter(placeArray){
         MyViewModelObj.img_url(data.response.venue.photos.groups[0].items[0].prefix +"200x200"+ data.response.venue.photos.groups[0].items[0].suffix);
         MyViewModelObj.venue_rate(data.response.venue.rating);
         MyViewModelObj.venue_category(data.response.venue.categories[0].name);
-
         MyViewModelObj.shouldShowCard(true);
-
-        // console.log(data.response.venue.name);
-        // console.log(data.response.venue.categories[0].name);
-        // console.log(data.response.venue.rating);
-        // console.log(data.response.venue.canonicalUrl);
-        // console.log(data.response.venue.photos.groups[0].items[0].prefix);
-        // console.log(data.response.venue.photos.groups[0].items[0].suffix);
       }
       else {
         MyViewModelObj.shouldShowAlert(true);
         console.log("error occured while loading data");
       }
-        // Now use this data to update your view models,
-        // and Knockout will update your UI automatically
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
-      //console.log('getStoreInfo' + JSON.stringify(jqXHR));
-      //console.log('getStoreInfo' + JSON.stringify(textStatus));
       MyViewModelObj.shouldShowAlert(true);
       console.log('getStoreInfo' + JSON.stringify(errorThrown));
     });
