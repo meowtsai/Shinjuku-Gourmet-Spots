@@ -8,9 +8,11 @@ let locations = [
 let selectedLocation;
 let markers = [];
 let map;
+
 function initMap() {
   let largeInfowindow = new google.maps.InfoWindow();
   let shinjuku = {lat: 35.6915, lng: 139.7081};
+  var bounds = new google.maps.LatLngBounds();
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 16,
     center: shinjuku
@@ -58,7 +60,9 @@ function initMap() {
       this.setIcon(defaultIcon);
     });
     markers.push(marker);
+    bounds.extend(marker.position);
   }
+  map.fitBounds(bounds);
 }
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
@@ -70,6 +74,10 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.addListener('closeclick',function(){
       infowindow.setMarker = null;
     });
+
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function(){ marker.setAnimation(null); }, 1400);
+    
   }
 }
 
@@ -81,9 +89,8 @@ function highlightMarker(place){
   }
   let highlightedMarker = markers.filter(item => item.title.search(place.title)>-1)[0];
   //console.log("highlightedMarker" + highlightedMarker);
-  highlightedMarker.setAnimation(google.maps.Animation.BOUNCE);
   google.maps.event.trigger(highlightedMarker, 'click');
-  setTimeout(function(){ highlightedMarker.setAnimation(null); }, 1400);
+
   //this.filteredArray(locations.filter(item => item.title.search(value) >-1));
   selectedLocation = place;
 }

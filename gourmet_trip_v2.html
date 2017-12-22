@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shinjuku  Gourmet Spots</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+    <link href="mycss.css" rel="stylesheet" />
+  </head>
+<body>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card w3-animate-left" style="width:200px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
+  <form class="bd-search d-flex align-items-center" onsubmit="return false;">
+    <input data-bind="textInput: filteredValue" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+  </form>
+  <nav class="navbar-expand bd-links" id="bd-docs-nav">
+    <ul class="nav nav-pills flex-column" data-bind="foreach: filteredArray">
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-bind="click: $parent.moreInfo"><span data-bind="text: title"></span></a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="w3-main" style="margin-left:200px">
+  <div class="w3-teal">
+    <div class="w3-container">
+      <h3>Shinjuku  Gourmet Spots</h3>
+    </div>
+    <button class="w3-button w3-teal w3-xlarge w3-hide-large" onclick="w3_open()">&#9776;</button>
+  </div>
+  <div class="w3-half">
+    <div class="col-sm-6">
+      <div class="card" role="card" style="background-color:white;width:20rem;margin:0;"  data-bind="visible: shouldShowCard">
+        <img class="card-img-top"  data-bind="attr:{src: img_url, alt:img_alt}" >
+        <div class="card-body">
+          <h5 class="card-title" data-bind="text: venue_name"></h5>
+          <span class="badge badge-success" data-bind="text: venue_rate"></span>
+          <p class="card-text">
+            <span data-bind="text: venue_category"><span>
+          </p>
+          <a data-bind="attr: { href: venue_url, title: venue_details }" target="_blank" class="btn btn-primary">More info</a>
+          <img  id="fs_logo" src="Powered-by-Foursquare-one-color-600_preview.png" />
+        </div>
+          <button type="button" class="close" aria-label="Close"  data-bind="click: closeCard">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+    </div>
+  </div>
+  <div class="alert alert-danger" role="alert" data-bind="visible: shouldShowAlert">
+    Sorry, we are not able to load the information about this venue. Please try again later.
+  </div>
+  <div class="alert alert-danger" role="alert" data-bind="visible: shouldShowMapAlert">
+    Sorry, we are not able to load Google Map API.  Please try again later.
+  </div>
+  <div>
+    <div  class="w3-container" id="map" style="position:absolute;width:100%; height:100%;z-index:-20;"></div>
+  </div>
+</div>
+<script>
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+}
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script src="api_data.js" ></script>
+<script  src="MyViewModel.js"></script>
+<script async defer
+    src=
+    "https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyDFkJJDaYnYKCoY3tbLugTjuGEsK3vB5TI&v=3&callback=initMap"
+    onerror='MyViewModelObj.shouldShowMapAlert(true);' >
+</script>
+</body>
+</html>

@@ -2,11 +2,18 @@ function MyViewModel() {
   var self = this;
   self.moreInfo = function(place) {
         highlightMarker(place);
+        w3_close();
         //getStoreInfo(place.foursquare_id);
 
     };
-    self.shouldShowCard = ko.observable(false), // Message initially visible
-    self.shouldShowAlert = ko.observable(false), // Message initially visible
+    self.closeCard = function() {
+          self.shouldShowCard(false);
+          //getStoreInfo(place.foursquare_id);
+
+      };
+    self.shouldShowCard = ko.observable(false), // Venue Data from foursquare
+    self.shouldShowAlert = ko.observable(false), // Message when foursquare data load failed.
+    self.shouldShowMapAlert = ko.observable(false), // Message when Google Map API load failed.
 
     self.venue_name=ko.observable();
     self.venue_url=ko.observable();
